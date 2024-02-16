@@ -1,0 +1,23 @@
+extend type Query {
+  roleList(pagination: PaginationInput): RoleList
+  role(id: Int!): Role
+}
+extend type Mutation {
+  createRole(input: RoleInput): Int
+  updateRole(id: Int!, input: RoleInput): Boolean
+  removeRole(id: Int!): Boolean
+  assignRoleToEmployee(empolyeeId: Int!, roleId: Int!): Int
+}
+input RoleInput {
+  roleName: String
+}
+type RoleList {
+  data: [Role]
+  pagination: Pagination
+}
+type Role {
+  id: Int
+  roleName: String
+  created_at: String
+  updated_at: String
+}

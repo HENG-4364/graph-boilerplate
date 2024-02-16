@@ -1,0 +1,43 @@
+extend type Query {
+  adminList(pagination: PaginationInput): AdminList
+  adminDetail(id: Int!): Admin
+  adminMe: Admin
+}
+
+extend type Mutation {
+  loginAdmin(input: SignInInput): Token
+  createAdmin(input: AdminInput): Int!
+  updateAdmin(id: Int!, input: AdminInput): Boolean
+  removeAdmin(id: Int!): Boolean
+}
+input SignInInput {
+  username: String!
+  password: String!
+}
+type Token {
+  token: String
+}
+type Admin {
+  id: Int
+  fullname: String
+  username: String
+  email: String
+  phoneNumber: String
+  profile: String
+  created_at: String
+  updated_at: String
+}
+
+type AdminList {
+  data: [Admin]
+  pagination: Pagination
+}
+
+input AdminInput {
+  fullname: String
+  username: String
+  password: String
+  email: String
+  phoneNumber: String
+  profile: String
+}

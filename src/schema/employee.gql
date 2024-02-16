@@ -1,0 +1,60 @@
+extend type Query {
+  employeeList(pagination: PaginationInput): employeeList
+  employee(id: Int!): employee
+}
+
+extend type Mutation {
+  loginEmployee(input: LoginEmployee): Token
+  createEmployee(input: EmployeeInput): Int!
+  updateEmployee(id: Int!, input: EmployeeInput): Int!
+  removeEmployee(id: Int!): Boolean
+}
+type Token {
+  token: String
+}
+
+input LoginEmployee {
+  userName: String
+  password: String
+}
+input EmployeeInput {
+  profile: String
+  userName: String
+  password: String
+  firstname: String
+  lastname: String
+  gender: String
+  tel: String
+  email: String
+  address: String
+  country: String
+}
+type employeeList {
+  data: [employee]
+  pagination: Pagination
+}
+type employee {
+  id: Int
+  profile: String
+  userName: String
+  password: String
+  firstname: String
+  lastname: String
+  gender: String
+  tel: String
+  email: String
+  address: String
+  country: String
+  created_at: String
+  updated_at: String
+}
+input PaginationInput {
+  page: Int
+  size: Int
+}
+
+type Pagination {
+  total: Int
+  size: Int
+  current: Int
+}
