@@ -13,6 +13,7 @@ export const authEmployeeMiddleware: ResolverMiddleware = (next) => {
       .first();
     const Employee = {
       ...employee,
+      userName:employee?.username,
       created_at: moment(employee.created_at).format("DD/MMM/YYYY"),
       updated_at: moment(employee.updated_at).format("DD/MMM/YYYY"),
     };

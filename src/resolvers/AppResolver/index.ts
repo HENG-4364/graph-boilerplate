@@ -17,11 +17,14 @@ import { AdminDetail } from "../Admin/Query/AdminDetailQuery";
 import { LoginEmployeeMutation } from "../Employee/Mutation/LoginEmployeeMutation";
 import { LoginAdminMutation } from "../Admin/Mutation/LoginAdminMutation";
 import { AdminMeQuery } from "../Admin/Query/AdminMeQuery";
+import { EmployeeMeQuery } from "../Employee/Query/EmployeeMeQuery";
+import { authEmployeeMiddleware } from "./../../middlewares/authEmployeeMiddleware";
 
 const AppResolver = [
   {
     Query: {
       adminMe: authMiddleWare(AdminMeQuery),
+      employeeMe: authEmployeeMiddleware(EmployeeMeQuery),
       employeeList: authMiddleWare(EmployeeListQuery),
       roleList: RoleListQuery,
       employee: EmployeeDetailQuery,
