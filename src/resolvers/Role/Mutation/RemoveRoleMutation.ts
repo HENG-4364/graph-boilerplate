@@ -10,6 +10,9 @@ export const RemoveRoleMutation = async (
   const knex = await ctx.knex.default;
   const removeRoleMutation = await knex.table("roles").del().where({ id });
   if (removeRoleMutation) {
+    await knex.table("role_permissions").del().where({
+      role_id: id,
+    });
     return true;
   } else {
     throw new AuthenticationError("Something went wrong");

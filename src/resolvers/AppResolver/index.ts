@@ -19,6 +19,7 @@ import { AdminMeQuery } from "../Admin/Query/AdminMeQuery";
 import { EmployeeMeQuery } from "../Employee/Query/EmployeeMeQuery";
 import { authEmployeeMiddleware } from "./../../middlewares/authEmployeeMiddleware";
 import { AssignRoleToAdmin } from "../Role/Mutation/AssignRoleToAdminMutation";
+import { RemoveAdminMutation } from "../Admin/Mutation/RemoveAdminMutation";
 
 const AppResolver = [
   {
@@ -26,24 +27,25 @@ const AppResolver = [
       adminMe: authMiddleWare(AdminMeQuery),
       employeeMe: authEmployeeMiddleware(EmployeeMeQuery),
       employeeList: authMiddleWare(EmployeeListQuery),
-      roleList: RoleListQuery,
-      employee: EmployeeDetailQuery,
-      role: RoleDetailQuery,
-      adminList: AdminListQuery,
-      adminDetail: AdminDetail,
+      roleList: authMiddleWare(RoleListQuery),
+      employee: authMiddleWare(EmployeeDetailQuery),
+      role: authMiddleWare(RoleDetailQuery),
+      adminList: authMiddleWare(AdminListQuery),
+      adminDetail: authMiddleWare(AdminDetail),
     },
     Upload: GraphQLUpload,
     Mutation: {
       createEmployee: CreateHrEmployeeMutation,
-      updateEmployee: UpdateEmpolyeeMutation,
-      removeEmployee: RemoveEmpolyeeMutation,
-      createRole: CreateRoleMutation,
-      updateRole: updateRoleMutation,
-      removeRole: RemoveRoleMutation,
+      updateEmployee: authMiddleWare(UpdateEmpolyeeMutation),
+      removeEmployee: authMiddleWare(RemoveEmpolyeeMutation),
+      createRole: authMiddleWare(CreateRoleMutation),
+      updateRole: authMiddleWare(updateRoleMutation),
+      removeRole: authMiddleWare(RemoveRoleMutation),
       assignRoleToAdmin: authMiddleWare(AssignRoleToAdmin),
-      createAdmin: CreateAdminMutation,
+      createAdmin: authMiddleWare(CreateAdminMutation),
       loginAdmin: LoginAdminMutation,
       loginEmployee: LoginEmployeeMutation,
+      removeAdmin: authMiddleWare(RemoveAdminMutation),
     },
   },
 ];

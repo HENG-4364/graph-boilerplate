@@ -1,15 +1,17 @@
 import { AuthenticationError } from "apollo-server";
-import { Graph } from "src/generated/graph";
 import ContextType from "src/graphql/ContextType";
 
-export const RemoveEmpolyeeMutation = async (
+export const RemoveAdminMutation = async (
   _,
   { id }: { id: number },
   ctx: ContextType
 ) => {
   const knex = await ctx.knex.default;
-  const employee = await knex.table("employee").del().where({ id });
-  if (employee) {
+  const removeAdmin = await knex.table("admins").del().where({ id });
+  if (removeAdmin) {
+    await knex.table("role_permissions").del().where({
+      admin_id: id,
+    });
     return true;
   } else {
     throw new AuthenticationError("Something went wrong");
