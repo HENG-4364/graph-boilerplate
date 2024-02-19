@@ -13,8 +13,12 @@ export const authMiddleWare: ResolverMiddleware = (next) => {
       .first();
     const Admin = {
       ...admin,
-      created_at: moment(admin.created_at).format("DD/MMM/YYYY"),
-      updated_at: moment(admin.updated_at).format("DD/MMM/YYYY"),
+      created_at: moment(admin.created_at)
+        .tz("Asia/Phnom_Penh")
+        .format("DD/MMM/YYYY"),
+      updated_at: moment(admin.updated_at)
+        .tz("Asia/Phnom_Penh")
+        .format("DD/MMM/YYYY"),
     };
     return next(parents, args, { ...context, decoded, admin: Admin }, info);
   };

@@ -1,0 +1,15 @@
+extend type Query {
+  activityLogsList(pagination: PaginationInput): ActivityLogsList
+}
+type ActivityLogsList {
+  data: [ActivityLogs]
+  pagination: Pagination
+}
+
+type ActivityLogs {
+  id: Int
+  admin_id: Int
+  activity: JSON
+  created_at: String
+  updated_at: String
+}

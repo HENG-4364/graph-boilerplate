@@ -13,10 +13,19 @@ export const authEmployeeMiddleware: ResolverMiddleware = (next) => {
       .first();
     const Employee = {
       ...employee,
-      userName:employee?.username,
-      created_at: moment(employee.created_at).format("DD/MMM/YYYY"),
-      updated_at: moment(employee.updated_at).format("DD/MMM/YYYY"),
+      userName: employee?.username,
+      created_at: moment(employee.created_at)
+        .tz("Asia/Phnom_Penh")
+        .format("DD/MMM/YYYY"),
+      updated_at: moment(employee.updated_at)
+        .tz("Asia/Phnom_Penh")
+        .format("DD/MMM/YYYY"),
     };
-    return next(parents, args, { ...context, decoded, employee: Employee }, info);
+    return next(
+      parents,
+      args,
+      { ...context, decoded, employee: Employee },
+      info
+    );
   };
 };

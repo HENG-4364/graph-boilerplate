@@ -7,11 +7,12 @@ export default interface ContextType {
   knex: {
     default: Knex;
   };
-  
+
   admin?: any;
-  employee?:any;
+  employee?: any;
   req: Request;
   decoded?: DecodedPayload;
+  ip?: any;
 }
 
 export async function createContext({

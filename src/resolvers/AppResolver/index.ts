@@ -20,6 +20,7 @@ import { EmployeeMeQuery } from "../Employee/Query/EmployeeMeQuery";
 import { authEmployeeMiddleware } from "./../../middlewares/authEmployeeMiddleware";
 import { AssignRoleToAdmin } from "../Role/Mutation/AssignRoleToAdminMutation";
 import { RemoveAdminMutation } from "../Admin/Mutation/RemoveAdminMutation";
+import { ActivityLogsList } from "../ActivityLog/Query/ActivityLogQuery";
 
 const AppResolver = [
   {
@@ -32,6 +33,7 @@ const AppResolver = [
       role: authMiddleWare(RoleDetailQuery),
       adminList: authMiddleWare(AdminListQuery),
       adminDetail: authMiddleWare(AdminDetail),
+      activityLogsList: authMiddleWare(ActivityLogsList),
     },
     Upload: GraphQLUpload,
     Mutation: {

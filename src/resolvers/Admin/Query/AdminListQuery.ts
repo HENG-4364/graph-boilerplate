@@ -16,8 +16,12 @@ export const AdminListQuery = async (
   const adminListQuery = await query;
   const adminList = adminListQuery.map((admin) => ({
     ...admin,
-    created_at: moment(admin.created_at).format("DD/MMM/YYYY"),
-    updated_at: moment(admin.updated_at).format("DD/MMM/YYYY"),
+    created_at: moment(admin.created_at)
+      .tz("Asia/Phnom_Penh")
+      .format("DD/MMM/YYYY"),
+    updated_at: moment(admin.updated_at)
+      .tz("Asia/Phnom_Penh")
+      .format("DD/MMM/YYYY"),
   }));
   const adminCount = await knex.table("admins");
   return {

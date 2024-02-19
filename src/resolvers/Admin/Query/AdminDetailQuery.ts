@@ -9,7 +9,11 @@ export const AdminDetail = async (
   const adminDetail = await knex.table("admins").where({ id }).first();
   return {
     ...adminDetail,
-    created_at: moment(adminDetail.created_at).format("DD/MMM/YYYY"),
-    updated_at: moment(adminDetail.updated_at).format("DD/MMM/YYYY"),
+    created_at: moment(adminDetail.created_at)
+      .tz("Asia/Phnom_Penh")
+      .format("DD/MMM/YYYY"),
+    updated_at: moment(adminDetail.updated_at)
+      .tz("Asia/Phnom_Penh")
+      .format("DD/MMM/YYYY"),
   };
 };

@@ -9,7 +9,11 @@ export const EmployeeDetailQuery = async (
   const employeeDetail = await knex.table("employee").where({ id }).first();
   return {
     ...employeeDetail,
-    created_at: moment(employeeDetail.created_at).format("DD/MMM/YYYY"),
-    updated_at: moment(employeeDetail.updated_at).format("DD/MMM/YYYY"),
+    created_at: moment(employeeDetail.created_at)
+      .tz("Asia/Phnom_Penh")
+      .format("DD/MMM/YYYY"),
+    updated_at: moment(employeeDetail.updated_at)
+      .tz("Asia/Phnom_Penh")
+      .format("DD/MMM/YYYY"),
   };
 };
