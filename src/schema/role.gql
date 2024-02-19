@@ -6,7 +6,7 @@ extend type Mutation {
   createRole(input: RoleInput): Int
   updateRole(id: Int!, input: RoleInput): Boolean
   removeRole(id: Int!): Boolean
-  assignRoleToEmployee(empolyeeId: Int!, roleId: Int!): Int
+  assignRoleToAdmin(adminId: Int!, roleId: Int!): Int
 }
 input RoleInput {
   roleName: String

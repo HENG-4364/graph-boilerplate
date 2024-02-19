@@ -1,22 +1,19 @@
 import { AuthenticationError } from "apollo-server";
 import ContextType from "src/graphql/ContextType";
 
-export const AssignRoleToEmployee = async (
+export const AssignRoleToAdmin = async (
   _,
-  { roleId, empolyeeId }: { roleId: number; empolyeeId: number },
+  { roleId, adminId }: { roleId: number; adminId: number },
   ctx: ContextType
 ) => {
   const knex = await ctx.knex.default;
 
-  const checkEmployee = await knex
-    .table("employee")
-    .where({ id: empolyeeId })
-    .first();
+  const checkAdmin = await knex.table("admins").where({ id: adminId }).first();
   const checkRole = await knex.table("roles").where({ id: roleId }).first();
-  if (checkEmployee && checkRole) {
+  if (checkAdmin && checkRole) {
     const roleEmployeePermission = await knex
       .table("role_permissions")
-      .where("employee_id", "=", empolyeeId)
+      .where("admin_id", "=", adminId)
       .first();
     if (roleEmployeePermission) {
       await knex
@@ -24,15 +21,15 @@ export const AssignRoleToEmployee = async (
         .del()
         .where({ id: roleEmployeePermission.id });
     }
-    const [assignRoleToEmployee] = await knex.table("role_permissions").insert({
-      employee_id: empolyeeId,
+    const [assignRoleToAdmin] = await knex.table("role_permissions").insert({
+      admin_id: adminId,
       role_id: roleId,
     });
-    if (assignRoleToEmployee) {
+    if (assignRoleToAdmin) {
       await knex.table("role_permissions").where({
-        id: Number(assignRoleToEmployee),
+        id: Number(assignRoleToAdmin),
       });
-      return assignRoleToEmployee;
+      return assignRoleToAdmin;
     } else {
       throw new AuthenticationError("Something went wrong");
     }

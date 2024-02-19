@@ -9,7 +9,6 @@ import { updateRoleMutation } from "../Role/Mutation/UpdateRoleMutation";
 import { RemoveRoleMutation } from "../Role/Mutation/RemoveRoleMutation";
 import { EmployeeDetailQuery } from "../Employee/Query/EmployeeDetailQuery";
 import { RoleDetailQuery } from "../Role/Query/RoleDetailQuery";
-import { AssignRoleToEmployee } from "../Role/Mutation/AssignRoleToEmployeeMutation";
 import { CreateAdminMutation } from "../Admin/Mutation/CreateAdminMutation";
 import { authMiddleWare } from "./../../middlewares/authMiddleWare";
 import { AdminListQuery } from "../Admin/Query/AdminListQuery";
@@ -19,6 +18,7 @@ import { LoginAdminMutation } from "../Admin/Mutation/LoginAdminMutation";
 import { AdminMeQuery } from "../Admin/Query/AdminMeQuery";
 import { EmployeeMeQuery } from "../Employee/Query/EmployeeMeQuery";
 import { authEmployeeMiddleware } from "./../../middlewares/authEmployeeMiddleware";
+import { AssignRoleToAdmin } from "../Role/Mutation/AssignRoleToAdminMutation";
 
 const AppResolver = [
   {
@@ -40,7 +40,7 @@ const AppResolver = [
       createRole: CreateRoleMutation,
       updateRole: updateRoleMutation,
       removeRole: RemoveRoleMutation,
-      assignRoleToEmployee: AssignRoleToEmployee,
+      assignRoleToAdmin: authMiddleWare(AssignRoleToAdmin),
       createAdmin: CreateAdminMutation,
       loginAdmin: LoginAdminMutation,
       loginEmployee: LoginEmployeeMutation,
