@@ -2,6 +2,7 @@ import { AuthenticationError } from "apollo-server";
 import { Graph } from "src/generated/graph";
 import ContextType from "src/graphql/ContextType";
 import bcrypt from "bcryptjs";
+import moment from "moment-timezone";
 import { generateToken } from "../../../utils/jwt";
 export const LoginAdminMutation = async (
   _,
@@ -9,6 +10,7 @@ export const LoginAdminMutation = async (
   ctx: ContextType
 ) => {
   const knex = await ctx.knex.default;
+  const admin_id = await ctx.admin?.id;
   const getAdmin = await knex
     .table("admins")
     .where({
@@ -39,6 +41,16 @@ export const LoginAdminMutation = async (
   }
   const token = generateToken(getAdmin.id);
   if (token) {
+    await knex.table("activity_log").insert({
+      admin_id: getAdmin.id,
+      activity: JSON.stringify(
+        `{'ip':'${
+          ctx.ip
+        }',':'admin_login','logged_at': '${moment()
+          .tz("Asia/Phnom_Penh")
+          .format("DD-MM-YYYY hh:mm:ss A")}'}`
+      ),
+    });
     return {
       token: token,
     };
