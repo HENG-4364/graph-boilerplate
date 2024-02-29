@@ -3,7 +3,7 @@ import { Graph } from "src/generated/graph";
 import ContextType from "src/graphql/ContextType";
 import bcrypt from "bcryptjs";
 import moment from "moment-timezone";
-import { generateToken } from "../../../utils/jwt";
+import { generateToken } from "../../../../utils/jwt";
 export const LoginAdminMutation = async (
   _,
   { input }: { input: Graph.AdminInput },
@@ -44,9 +44,7 @@ export const LoginAdminMutation = async (
     await knex.table("activity_log").insert({
       admin_id: getAdmin.id,
       activity: JSON.stringify(
-        `{'ip':'${
-          ctx.ip
-        }',':'admin_login','logged_at': '${moment()
+        `{'ip':'${ctx.ip}',':'admin_login','logged_at': '${moment()
           .tz("Asia/Phnom_Penh")
           .format("DD-MM-YYYY hh:mm:ss A")}'}`
       ),

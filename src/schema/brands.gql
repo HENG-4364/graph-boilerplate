@@ -1,0 +1,29 @@
+extend type Query {
+  adminBrandList(pagination: PaginationInput): AdminBrandList
+  adminBrand(id: Int!): Brand
+  appBrandList(pagination: PaginationInput): AppBrandList
+}
+extend type Mutation {
+  adminCreateBrand(input: BrandInput): Int!
+  adminUpdateBrand(id: Int!, input: BrandInput): Boolean
+  adminRemoveBrand(id: Int!): Boolean
+}
+type AdminBrandList {
+  data: [Brand]
+  pagination: Pagination
+}
+type AppBrandList {
+  data: [Brand]
+  pagination: Pagination
+}
+type Brand {
+  id: Int
+  BrandImage: String
+  BrandName: String
+  created_at: String
+  updated_at: String
+}
+input BrandInput {
+  BrandImage: String
+  BrandName: String
+}
